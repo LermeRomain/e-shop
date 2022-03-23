@@ -42,6 +42,16 @@ class Products
      */
     private $photo;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $category_id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $stock;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +113,30 @@ class Products
     public function setPhoto(string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getCategoryId(): ?int
+    {
+        return $this->category_id;
+    }
+
+    public function setCategoryId(int $category_id): self
+    {
+        $this->category_id = $category_id;
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): self
+    {
+        $this->stock = $stock;
 
         return $this;
     }

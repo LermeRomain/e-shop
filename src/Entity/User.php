@@ -42,6 +42,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $delivery_address;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $zip_code;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -139,6 +149,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getDeliveryAddress(): ?string
+    {
+        return $this->delivery_address;
+    }
+
+    public function setDeliveryAddress(string $delivery_address): self
+    {
+        $this->delivery_address = $delivery_address;
+
+        return $this;
+    }
+
+    public function getZipCode(): ?int
+    {
+        return $this->zip_code;
+    }
+
+    public function setZipCode(int $zip_code): self
+    {
+        $this->zip_code = $zip_code;
 
         return $this;
     }
