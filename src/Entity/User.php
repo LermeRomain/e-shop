@@ -4,11 +4,13 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -36,14 +38,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="boolean")
      */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $updated_at;
+    private $isVerified = false;
 
     public function getId(): ?int
     {
@@ -134,26 +131,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function isVerified(): bool
     {
-        return $this->created_at;
+        return $this->isVerified;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function setIsVerified(bool $isVerified): self
     {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
-    {
-        $this->updated_at = $updated_at;
+        $this->isVerified = $isVerified;
 
         return $this;
     }
