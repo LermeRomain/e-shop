@@ -43,7 +43,7 @@ class Orders
     private $status;
 
     /**
-     * @ORM\OneToOne(targetEntity=cart::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Cart::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $cart;
