@@ -30,7 +30,12 @@
                 <td>{{ product.stock }}</td>
                 <td>
                     <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
+
                     <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
+                    <a href="{{ path('add_cart', {'id': product.id }) }}" class="btn btn-success float-right">
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        Ajouter
+                    </a>
                 </td>
             </tr>
         {% else %}
@@ -42,4 +47,5 @@
     </table>
 
     <a href="{{ path('app_products_new') }}">Create new</a>
+
 {% endblock %}

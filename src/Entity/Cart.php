@@ -20,13 +20,13 @@ class Cart
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=user::class, inversedBy="product_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="product_id", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user_id;
+    private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=products::class, inversedBy="carts")
+     * @ORM\ManyToMany(targetEntity=Products::class, inversedBy="carts")
      */
     private $product;
 
@@ -42,12 +42,12 @@ class Cart
 
     public function getUserId(): ?user
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(user $user_id): self
+    public function setUserId(user $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }

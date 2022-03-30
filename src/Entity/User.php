@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $zip_code;
 
     /**
-     * @ORM\OneToOne(targetEntity=Cart::class, mappedBy="user_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Cart::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $product_id;
 
