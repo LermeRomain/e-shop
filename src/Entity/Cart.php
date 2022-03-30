@@ -40,12 +40,12 @@ class Cart
         return $this->id;
     }
 
-    public function getUserId(): ?User
+    public function getUserId(): ?user
     {
         return $this->user;
     }
 
-    public function setUserId(User $user): self
+    public function setUserId(user $user): self
     {
         $this->user = $user;
 
