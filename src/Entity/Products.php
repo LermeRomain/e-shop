@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,15 +44,21 @@ class Products
      */
     private $photo;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $category_id;
 
     /**
      * @ORM\Column(type="integer")
      */
     private $stock;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="products")
+     */
+    private $category;
+
+    public function __construct()
+    {
+        $this->category = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -117,17 +125,6 @@ class Products
         return $this;
     }
 
-    public function getCategoryId(): ?int
-    {
-        return $this->category_id;
-    }
-
-    public function setCategoryId(int $category_id): self
-    {
-        $this->category_id = $category_id;
-
-        return $this;
-    }
 
     public function getStock(): ?int
     {
@@ -137,6 +134,30 @@ class Products
     public function setStock(int $stock): self
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategory(): Collection
+    {
+        return $this->category;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->category->contains($category)) {
+            $this->category[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->category->removeElement($category);
 
         return $this;
     }
