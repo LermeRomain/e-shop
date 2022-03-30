@@ -42,6 +42,12 @@ class Orders
      */
     private $status;
 
+    /**
+     * @ORM\OneToOne(targetEntity=cart::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cart;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +109,18 @@ class Orders
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCart(): ?cart
+    {
+        return $this->cart;
+    }
+
+    public function setCart(cart $cart): self
+    {
+        $this->cart = $cart;
 
         return $this;
     }

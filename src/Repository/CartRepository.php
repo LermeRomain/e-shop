@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\OrderItems;
+use App\Entity\Cart;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method OrderItems|null find($id, $lockMode = null, $lockVersion = null)
- * @method OrderItems|null findOneBy(array $criteria, array $orderBy = null)
- * @method OrderItems[]    findAll()
- * @method OrderItems[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Cart|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Cart|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Cart[]    findAll()
+ * @method Cart[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OrderItemsRepository extends ServiceEntityRepository
+class CartRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, OrderItems::class);
+        parent::__construct($registry, Cart::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(OrderItems $entity, bool $flush = true): void
+    public function add(Cart $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class OrderItemsRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(OrderItems $entity, bool $flush = true): void
+    public function remove(Cart $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,15 +46,15 @@ class OrderItemsRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return OrderItems[] Returns an array of OrderItems objects
+    //  * @return Cart[] Returns an array of Cart objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
+            ->orderBy('c.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -63,10 +63,10 @@ class OrderItemsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?OrderItems
+    public function findOneBySomeField($value): ?Cart
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

@@ -52,6 +52,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $zip_code;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Cart::class, mappedBy="user_id", cascade={"persist", "remove"})
+     */
+    private $product_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -173,6 +178,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setZipCode(int $zip_code): self
     {
         $this->zip_code = $zip_code;
+
+        return $this;
+    }
+
+    public function getProductId(): ?Cart
+    {
+        return $this->product_id;
+    }
+
+    public function setProductId(Cart $product_id): self
+    {
+        // set the owning side of the relation if necessary
+        if ($product_id->getUserId() !== $this) {
+            $product_id->setUserId($this);
+        }
+
+        $this->product_id = $product_id;
 
         return $this;
     }

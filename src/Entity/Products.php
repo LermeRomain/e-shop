@@ -55,9 +55,15 @@ class Products
      */
     private $category;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Cart::class, mappedBy="product")
+     */
+    private $carts;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -158,6 +164,33 @@ class Products
     public function removeCategory(Category $category): self
     {
         $this->category->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts[] = $cart;
+            $cart->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): self
+    {
+        if ($this->carts->removeElement($cart)) {
+            $cart->removeProduct($this);
+        }
 
         return $this;
     }
