@@ -8,6 +8,7 @@ use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,7 +19,7 @@ class ProductsController extends AbstractController
     /**
      * @Route("/", name="app_products_index", methods={"GET"})
      */
-    public function index(ProductsRepository $productsRepository): Response
+    public function index(ProductsRepository $productsRepository, SessionInterface $session): Response
     {
         return $this->render('products/index.html.twig', [
             'products' => $productsRepository->findAll(),

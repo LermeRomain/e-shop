@@ -4,14 +4,131 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
-           {# {{ encore_entry_link_tags('app') }} #}
+{# {{ encore_entry_link_tags('app') }}#}
         {% endblock %}
 
         {% block javascripts %}
-           {# {{ encore_entry_script_tags('app') }}#}
+{# {{ encore_entry_script_tags('app') }} #}
         {% endblock %}
+
+        <style>
+            h1 {
+                font-size: 2.5rem;
+                color : cornflowerblue;
+                background-color: #cee0ff;
+                padding: 0.5rem;
+                font-weight: 600;
+            }
+            h3 {
+                font-size: 1.5rem;
+                color: #B52D24;
+            }
+            body {
+                padding: 2rem;
+                font-family: 'Bitter';
+            }
+            .products {
+                width: 100%;
+                display: flex;
+            }
+            .a_products {
+                text-decoration: none;
+                color: black;
+            }
+            .a_products:hover {
+                text-decoration: none;
+                color: black;
+            }
+            .products > section {
+                width: calc(100%/3);
+                box-shadow: lightgray 0px 0px 20px 0px;
+                border-radius: 8px;
+                padding: 1rem;
+                margin: 1rem;
+                transition: 0.3s;
+            }
+            .products > section > p {
+                max-lines: 3;
+            }
+            .products > section:hover {
+                box-shadow: none;
+            }
+            .price {
+                color : cornflowerblue;
+            }
+            .ajouter {
+                background-color: #EE9D81;
+                color: #c1342c;
+                border-radius: 8px;
+                text-decoration: none;
+                display: inline-block;
+                font-weight: 400;
+                line-height: 1.5;
+                text-align: center;
+                text-decoration: none;
+                vertical-align: middle;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+                padding: .375rem .75rem;
+                }
+            .supprimer {
+                background-color: #EE9D81;
+                color: #c1342c;
+                border-radius: 8px;
+                text-decoration: none;
+                display: inline-block;
+                font-weight: 400;
+                line-height: 1.5;
+                text-align: center;
+                text-decoration: none;
+                vertical-align: middle;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+                padding: .375rem .75rem;
+            }
+            .retirer {
+                color: #c1342c;
+                border: 1px solid #c1342c;
+                border-radius: 8px;
+                text-decoration: none;
+                display: inline-block;
+                font-weight: 400;
+                line-height: 1.5;
+                text-align: center;
+                text-decoration: none;
+                vertical-align: middle;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+                padding: .375rem .75rem;
+            }
+            .commander {
+                color: cornflowerblue;
+                background-color: #cee0ff;
+                border: 1px solid cornflowerblue;
+                border-radius: 8px;
+                text-decoration: none;
+                display: inline-block;
+                font-weight: 400;
+                line-height: 1.5;
+                text-align: center;
+                text-decoration: none;
+                vertical-align: middle;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+                padding: .375rem .75rem;
+            }
+        </style>
     </head>
     <body>
         {% block body %}{% endblock %}

@@ -3,7 +3,7 @@
 {% block title %}Products index{% endblock %}
 
 {% block body %}
-    <h1>Products index</h1>
+    <h1>Nos Kaplas</h1>
 
     <table class="table">
         <thead>
@@ -19,6 +19,20 @@
             </tr>
         </thead>
         <tbody>
+        <div class="products">
+            {% for product in products %}
+                <a class="a_products" href="{{ path('app_products_show', {'id': product.id}) }}">
+                    <section>
+                        <h3>{{ product.name }}</h3>
+                        <h4 class="price">{{ product.price }} €</h4>
+                        <p>{{ product.description }}</p>
+                        <a href="{{ path('add_cart', {'id': product.id }) }}" class="ajouter">Ajouter</a>
+                    </section>
+                </a>
+            {% endfor %}
+        </div>
+
+
         {% for product in products %}
             <tr>
                 <td>{{ product.id }}</td>

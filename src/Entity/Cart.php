@@ -20,19 +20,19 @@ class Cart
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="product_id", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="cart", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Products::class, inversedBy="carts")
+     * @ORM\OneToMany(targetEntity=CartProducts::class, mappedBy="cart", orphanRemoval=true)
      */
-    private $product;
+    private $cartProducts;
 
     public function __construct()
     {
-        $this->product = new ArrayCollection();
+        $this->cartProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,25 +53,31 @@ class Cart
     }
 
     /**
-     * @return Collection<int, products>
+     * @return Collection<int, CartProducts>
      */
-    public function getProduct(): Collection
+    public function getCartProducts(): Collection
     {
-        return $this->product;
+        return $this->cartProducts;
     }
 
-    public function addProduct(products $product): self
+    public function addCartProduct(CartProducts $cartProduct): self
     {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
+        if (!$this->cartProducts->contains($cartProduct)) {
+            $this->cartProducts[] = $cartProduct;
+            $cartProduct->setCart($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(products $product): self
+    public function removeCartProduct(CartProducts $cartProduct): self
     {
-        $this->product->removeElement($product);
+        if ($this->cartProducts->removeElement($cartProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($cartProduct->getCart() === $this) {
+                $cartProduct->setCart(null);
+            }
+        }
 
         return $this;
     }

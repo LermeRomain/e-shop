@@ -6,6 +6,8 @@ use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductsRepository::class)
@@ -47,6 +49,7 @@ class Products
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\PositiveOrZero
      */
     private $stock;
 
@@ -56,7 +59,7 @@ class Products
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Cart::class, mappedBy="product")
+     * @ORM\ManyToMany(targetEntity=Cart::class, mappedBy="cartProducts")
      */
     private $carts;
 

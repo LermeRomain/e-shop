@@ -53,9 +53,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $zip_code;
 
     /**
-     * @ORM\OneToOne(targetEntity=Cart::class, mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="user", cascade={"persist", "remove"})
      */
-    private $product_id;
+    private $cart;
 
     public function getId(): ?int
     {
@@ -81,7 +81,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->id;
     }
 
     /**
@@ -151,6 +151,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->isVerified;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;

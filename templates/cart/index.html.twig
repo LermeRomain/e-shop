@@ -9,9 +9,7 @@
             {{ message }}
         </div>
     {% endfor %}
-    <div class="bg-light p-3">
-        <h1>Votre panier</h1>
-    </div>
+    <h1>Votre panier</h1>
 
     {% if items | length > 0 %}
         <table class="table">
@@ -28,14 +26,14 @@
             {% for item in items %}
                 <tr>
                     <th>{{ item.product.name }}</th>
-                    <th>{{ item.product.price }}</th>
+                    <th>{{ item.product.price }} €</th>
                     <th>{{ item.quantity }}</th>
-                    <th>{{ item.product.price*item.quantity }}</th>
+                    <th>{{ item.product.price*item.quantity }} €</th>
                     <th>
-                        <a href="{{ path('remove_cart', {'id': item.product.id}) }}" class="btn">Supprimer</a>
+                        <a href="{{ path('remove_cart', {'id': item.product.id}) }}" class="supprimer">Supprimer</a>
                     </th>
                     <th>
-                        <a href="{{ path('remove_quantity_cart', {'id': item.product.id}) }}" class="btn">Retirer</a>
+                        <a href="{{ path('remove_quantity_cart', {'id': item.product.id}) }}" class="retirer">Retirer</a>
                     </th>
                 </tr>
             {% endfor %}
@@ -43,12 +41,14 @@
             <tfoot>
             <tr>
                 <td colspan="3">Total: </td>
-                <td>{{ total }}</td>
+                <td>{{ total }} €</td>
                 <td></td>
             </tr>
             </tfoot>
         </table>
-        <button class="btn">Commander</button>
+
+        <a href="{{ path('app_order')}}" class="commander">Commander</a>
+
     {% else %}
         <p>Surprise, c'est vide !</p>
     {% endif %}
