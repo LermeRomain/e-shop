@@ -9,45 +9,48 @@
             {{ message }}
         </div>
     {% endfor %}
-    <h1>Votre panier</h1>
+<h1>Votre panier</h1>
 
-    {% if items | length > 0 %}
-        <table class="table">
-            <thead>
+{% if items | length > 0 %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
             <tr>
-                <th>Produit</th>
-                <th>Prix</th>
-                <th>Quantité</th>
-                <th>Total</th>
-                <th></th>
+                <th>{{ item.product.name }}</th>
+                <th>{{ item.product.price }} €</th>
+                <th>{{ item.quantity }}</th>
+                <th>{{ item.product.price*item.quantity }} €</th>
+                <th>
+                    <a href="{{ path('remove_cart', {'id': item.product.id}) }}" class="supprimer">Supprimer</a>
+                </th>
+                <th>
+                    <a href="{{ path('remove_quantity_cart', {'id': item.product.id}) }}" class="retirer">Retirer</a>
+                </th>
             </tr>
-            </thead>
-            <tbody>
-            {% for item in items %}
-                <tr>
-                    <th>{{ item.product.name }}</th>
-                    <th>{{ item.product.price }} €</th>
-                    <th>{{ item.quantity }}</th>
-                    <th>{{ item.product.price*item.quantity }} €</th>
-                    <th>
-                        <a href="{{ path('remove_cart', {'id': item.product.id}) }}" class="supprimer">Supprimer</a>
-                    </th>
-                    <th>
-                        <a href="{{ path('remove_quantity_cart', {'id': item.product.id}) }}" class="retirer">Retirer</a>
-                    </th>
-                </tr>
-            {% endfor %}
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="3">Total: </td>
-                <td>{{ total }} €</td>
-                <td></td>
-            </tr>
-            </tfoot>
-        </table>
-
-        <a href="{{ path('app_order')}}" class="commander">Commander</a>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3">Total:</td>
+            <td>{{ total }} €</td>
+            <td></td>
+        </tr>
+        </tfoot>
+    </table>
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('app_order') }}" class="commander">Commander</a>
+        {% else %}
+            <a href="{{ path('login') }}" class="commander">Connexion</a>
+        {% endif %}
 
     {% else %}
         <p>Surprise, c'est vide !</p>

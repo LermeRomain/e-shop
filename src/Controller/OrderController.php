@@ -72,7 +72,7 @@ class OrderController extends AbstractController
                 $product->setStock($product->getStock() - $quantity);
                 $errors = $validator->validate($product);
                 if(count($errors) > 0) {
-                    $this->addFlash('error', 'La quantité commandée est suppérieur au stock');
+                    $this->addFlash('error', 'La quantité commandée est supérieur au stock');
                     return $this->redirectToRoute('app_order', [], Response::HTTP_SEE_OTHER);
                 }
                 $entityManager->flush();
@@ -81,6 +81,7 @@ class OrderController extends AbstractController
             $session->set('cart', []);
             return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
         }
+
 
         return $this->render('order/index.html.twig', [
             'controller_name' => 'OrderController',

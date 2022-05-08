@@ -1,26 +1,163 @@
+{#{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% apply inline_css %}
+        <head>
+            <style>
+                .btn-outline {
+                    color: white;
+                    background-color: #F57C47;
+                }
+
+                .marginDiv {
+                    margin-bottom: 4rem;
+                }
+
+                .form-group {
+                    margin: 1rem 0;
+                }
+
+                .register {
+                    background-color: rgb(245, 124, 71, 30%);
+                    padding: 2rem;
+                    border-radius: 8px;
+                }
+
+                .title {
+                    display: flex;
+                    align-items: end;
+                    justify-content: end;
+                    margin-bottom: 0.5rem;
+                }
+
+                h1 {
+                    font-size: 2rem;
+                    color: #8b9df3;
+                }
+            </style>
+        </head>
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+
+        <h1>Register</h1>
+        <div class="row">
+            <div class="col-8 m-auto register">
+
+                {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+                {{ form_row(registrationForm.deliveryAddress) }}
+                {{ form_row(registrationForm.zipCode) }}
+
+
+
+                {{ form_row(registrationForm.agreeTerms) }}
+
+                <button type="submit" class="btn">Register</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    {% endapply %}
+{% endblock %}#}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+    {% apply inline_css %}
+        <head>
+            <style>
+                .btn-1 {
+                    background: rgb(96,9,240);
+                    background: linear-gradient(0deg, rgba(96,9,240,1) 0%, rgba(129,5,240,1) 100%);
+                    border: none;
+                    width: 130px;
+                    height: 40px;
+                    color: white;
+                    border-radius: 5px;
+                    padding: 10px 25px;
+                    font-family: 'Lato', sans-serif;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    position: relative;
+                    display: inline-block;
+                    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+                    7px 7px 20px 0px rgba(0,0,0,.1),
+                    4px 4px 5px 0px rgba(0,0,0,.1);
+                    outline: none;
+                    margin: 20px;
+                }
+                .marginDiv {
+                    margin-bottom: 4rem;
+                }
+                .form-group {
+                    margin: 1rem 0;
+                }
+                .register {
+                    background-color: rgb(245, 124, 71, 30%);
+                    padding: 2rem;
+                    border-radius: 8px;
+                }
+                .title {
+                    display: flex;
+                    align-items: end;
+                    justify-content: end;
+                    margin-bottom: 0.5rem;
+                }
+                h1 {
+                    font-size: 5rem;
+                    color: #8b9df3;
+                }
+            </style>
+        </head>
+        <div class="container marginDiv">
 
-    <h1>Register</h1>
+            {{ form_start(registrationForm) }}
+            <div class="row">
+                <div class="col-8 m-auto">
+                    <div class="row">
+                        <div class="col-4">
+                        </div>
+                        <div class="col-8 title">
+                            <h1>Inscription</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8 m-auto register">
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-    {{ form_row(registrationForm.deliveryAddress) }}
-    {{ form_row(registrationForm.zipCode) }}
+
+                    {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                        label: 'Password'
+                    }) }}
+                    {{ form_row(registrationForm.deliveryAddress) }}
+                    {{ form_row(registrationForm.zipCode) }}
 
 
 
-        {{ form_row(registrationForm.agreeTerms) }}
+                    {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                    <button type="submit" class="btn-1">Valider</button>
+                    {{ form_end(registrationForm) }}
+
+                </div>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+        </div>
+
+
+    {% endapply %}
+
+
 {% endblock %}

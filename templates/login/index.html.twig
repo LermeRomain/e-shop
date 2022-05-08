@@ -1,7 +1,10 @@
-{# templates/login/index.html.twig #}
+{# templates/login/index.html.twig #}{#
+
 {% extends 'base.html.twig' %}
 
-{# ... #}
+#}
+{# ... #}{#
+
 
 {% block body %}
     {% if error %}
@@ -15,9 +18,75 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="_password"/>
 
-        {# If you want to control the URL the user is redirected to on success
-        <input type="hidden" name="_target_path" value="/account"/> #}
+        #}
+{# If you want to control the URL the user is redirected to on success
+        <input type="hidden" name="_target_path" value="/account"/> #}{#
+
 
         <button type="submit">login</button>
     </form>
+{% endblock %}#}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    {% apply inline_css %}
+<html>
+<head>
+    <style>
+        .connection { display: flex; align-items: center }
+        .width {width: 100%}
+        .login {
+            background-color: #f57c47;
+            color: white;
+        }
+        .violet {
+            color: #8B9DF3;
+            border: 1px solid #8B9DF3;
+        }
+    </style>
+</head>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+        </div>
+        <div class="col-4 connection">
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        Vous êtes connecté {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </div>
+                {% endif %}
+
+                <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
+                <label for="username">Email:</label>
+                <input type="text" id="username" name="_username" value="{{ last_email }}"/>
+                <br>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="_password"/>
+
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                    </label>
+                </div>
+
+                <button class="btn btn-outline btn-lg login" type="submit">
+                    Se connecter
+                </button>
+                <a class="btn btn-outline btn-lg violet" href="{{ path('app_register') }}"> Créer un compte</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endapply %}
 {% endblock %}
+
+
