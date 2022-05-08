@@ -6,18 +6,20 @@
     <h1>Nos Kaplas</h1>
 
     <table class="table">
+        {% if is_granted('ROLE_ADMIN') %}
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Created_at</th>
-                <th>Photo</th>
-                <th>Stock</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Created_at</th>
+            <th>Photo</th>
+            <th>Stock</th>
+            <th>actions</th>
+        </tr>
         </thead>
+        {% endif %}
         <tbody>
         <div class="products">
             {% for product in products %}
@@ -32,34 +34,36 @@
             {% endfor %}
         </div>
 
+        {% if is_granted('ROLE_ADMIN') %}
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ product.photo }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>
+                        <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
 
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ product.photo }}</td>
-                <td>{{ product.stock }}</td>
-                <td>
-                    <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
-
-                    <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
-                    <a href="{{ path('add_cart', {'id': product.id }) }}" class="btn btn-success float-right">
-                        <i class="fas fa-shopping-cart mr-1"></i>
-                        Ajouter
-                    </a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
+                        <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
+                        <a href="{{ path('add_cart', {'id': product.id }) }}" class="btn btn-success float-right">
+                            <i class="fas fa-shopping-cart mr-1"></i>
+                            Ajouter
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_products_new') }}">Create new</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_products_new') }}">Create new</a>
+    {% endif %}
 
 {% endblock %}
